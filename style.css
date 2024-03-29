@@ -1,0 +1,46 @@
+/* CSS */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    width: 250px;
+    /* margin: auto; */
+    margin-bottom: 20px;
+}
+
+#start-area {
+    /* display: flex;
+    justify-content: space-around;
+    width: 1000px;
+    margin: auto; */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    width: 250px;
+    /* margin: auto; */
+    margin-bottom: 20px;
+}
+
+/* CSS */
+.tile {
+    width: 200px;
+    height: 133px;
+    background-image: url('wooden-textured-background.jpg');
+    border: 1px solid #8B4513;
+    /* saddlebrown */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    /* new styles */
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.slot {
+    width: 200px;
+    height: 133px;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
