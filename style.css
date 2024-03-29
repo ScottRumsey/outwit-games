@@ -5,7 +5,7 @@
     grid-gap: 10px;
     width: 250px;
     /* margin: auto; */
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 #start-area {
@@ -37,10 +37,39 @@
     font-weight: bold;
     color: white;
     cursor: pointer;
+    border-radius: 2px;
+    font-family: "Survivant";
 }
 
+/* .incorrect {
+    background-color: red;
+}
+
+.correct {
+    background-color: green;
+} */
+
+.incorrect {
+    background-color: rgba(200, 0, 0, 0.5);
+    background-blend-mode: multiply;
+  }
+  .correct {
+    background-color: rgba(0, 200, 0, 0.5);
+    background-blend-mode: multiply;
+  }
 .slot {
     width: 200px;
     height: 133px;
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+}
+
+@font-face {
+    font-family: "Survivant";
+    src: url('survivant.ttf') format("truetype");
+}
+
+.logo{
+    height: 80%;
+    width: 80%;
 }

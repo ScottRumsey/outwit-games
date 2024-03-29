@@ -1,56 +1,104 @@
 const board = document.getElementById('game-board');
 const startArea = document.getElementById('start-area');
 const message = document.getElementById('message');
-const tiles = Array.from({ length: 20 }, (_, i) => i + 1);
-tiles.sort(() => Math.random() - 0.5);
+const allTiles = Array.from({ length: 34 }, (_, i) => i + 1);
+var tiles;
 
-const createDiv = (className, id, eventListeners) => {
+const createDiv = (className, num, eventListeners) => {
     const div = document.createElement('div');
     div.className = className;
-    if (id) div.id = id;
+
+    if (num) {
+        div.id = className + "-" + num;
+    }
+
     Object.entries(eventListeners).forEach(([event, handler]) => {
         div.addEventListener(event, handler);
     });
     return div;
 };
 
-tiles.forEach((tile, i) => {
-    const tileDiv = createDiv('tile', 'tile-' + i, {
-        dragstart: dragStart,
-        dragover: dragOver,
-        drop: drop,
-        touchstart: touchStart,
-        touchmove: touchMove,
-        touchend: touchEnd,
-    });
-    tileDiv.textContent = tile;
-    tileDiv.draggable = true;
-
-    const slot = createDiv('slot', null, {
-        dragover: dragOver,
-        drop: drop,
-        touchmove: touchMove,
-        touchend: touchEnd,
-    });
-    slot.appendChild(tileDiv);
-    startArea.appendChild(slot);
-});
-
-for (let i = 0; i < 20; i++) {
-    const slotDiv = createDiv('slot', null, {
-        dragover: dragOver,
-        drop: drop,
-    });
-    board.appendChild(slotDiv);
+function newGame() {
+    allTiles.sort(() => Math.random() - 0.5);
+    tiles = allTiles.slice(0, 20);
+    boardInit();
 }
 
-function checkWin() {
-    for (let i = 0; i < tiles.length; i++) {
-        if (tiles[i] !== i + 1) {
-            return;
-        }
+function boardInit() {
+    board.innerHTML = '';
+    startArea.innerHTML = '';
+    message.innerHTML = '';
+
+    tiles.forEach((tile, i) => {
+        const tileDiv = createDiv('tile', i, {
+            dragstart: dragStart,
+            dragover: dragOver,
+            drop: drop,
+            touchstart: touchStart,
+            touchmove: touchMove,
+            touchend: touchEnd,
+        });
+        tileDiv.dataset.tileid = tile;
+        tileDiv.draggable = true;
+
+        const img = document.createElement('img');
+        img.className = "logo";
+        img.src = tile + ".png";
+
+        tileDiv.appendChild(img);
+
+
+        const slot = createDiv('slot', null, {
+            dragover: dragOver,
+            drop: drop,
+            touchmove: touchMove,
+            touchend: touchEnd,
+        });
+        slot.appendChild(tileDiv);
+        startArea.appendChild(slot);
+    });
+
+    for (let i = 0; i < 20; i++) {
+        const slotDiv = createDiv('slot', i + 1, {
+            dragover: dragOver,
+            drop: drop,
+        });
+        slotDiv.dataset.slotid = i + 1;
+        board.appendChild(slotDiv);
     }
-    message.textContent = 'Congratulations!';
+}
+
+newGame();
+document.getElementById('checkWinButton').addEventListener('click', checkWin);
+document.getElementById('resetButton').addEventListener('click', boardInit);
+document.getElementById('newGameButton').addEventListener('click', newGame);
+
+function checkWin() {
+    message.textContent = '';
+    var win = true;
+    document.querySelectorAll('#game-board .slot').forEach(slot => {
+        var tile = slot.querySelector('.tile');
+
+        if (tile == null) {
+            win = false;
+        }
+        else {
+            if (slot.dataset.slotid != tile.dataset.tileid) {
+                tile.classList.add('incorrect');
+                win = false;
+            }
+            else {
+                tile.classList.add('correct');
+            }
+        }
+
+        if (win) {
+            message.textContent = 'Congratulations!';
+        }
+        else {
+            message.textContent = 'WRONG!';
+        }
+    });
 }
 
 let draggedItem = null;
@@ -65,27 +113,18 @@ function dragOver(e) {
 
 function drop(e) {
     e.preventDefault();
-    if (e.target.className === 'tile') {
-        let temp = e.target;
-        let tempParent = e.target.parentNode;
-        let draggedParent = draggedItem.parentNode;
-
-        setTimeout(() => {
+    console.log(e.target.className);
+    setTimeout(() => {
+        if (e.target.className === 'tile') {
+            let temp = e.target;
+            let tempParent = e.target.parentNode;
+            let draggedParent = draggedItem.parentNode;
             draggedParent.insertBefore(temp, draggedParent.firstChild);
             tempParent.insertBefore(draggedItem, tempParent.firstChild);
-        }, 0);
-    } else if (e.target.className === 'slot') {
-        if (e.target.hasChildNodes()) {
-            let temp = e.target.removeChild(e.target.firstChild);
-            setTimeout(() => {
-                draggedItem.parentNode.insertBefore(temp, draggedItem.parentNode.firstChild);
-                e.target.insertBefore(draggedItem, e.target.firstChild);
-            }, 0);
-        } else {
-            e.target.insertBefore(draggedItem, e.target.firstChild);
+        } else if (e.target.className === 'slot') {
+            e.target.appendChild(draggedItem);
         }
-    }
-    checkWin();
+    }, 0);
 }
 
 let activeTouch;
@@ -118,8 +157,7 @@ function touchEnd(e) {
         }
     }
 
-    draggedItem.style.left = ''; // reset the position
+    draggedItem.style.left = '';
     draggedItem.style.top = '';
-    checkWin();
 }
 
