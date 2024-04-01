@@ -42,8 +42,8 @@ function boardInit() {
         tileDiv.draggable = true;
 
         const img = document.createElement('img');
-        img.className = "logo";
-        img.src = tile + ".png";
+        img.className = "tile-logo";
+        img.src = "logos/" + tile + ".png";
 
         tileDiv.appendChild(img);
 
@@ -161,3 +161,13 @@ function touchEnd(e) {
     draggedItem.style.top = '';
 }
 
+/* JavaScript */
+function onClickMenu() {
+    document.getElementById("menu").classList.toggle("change");
+    document.getElementById("nav").classList.toggle("change");
+}
+
+// JavaScript
+document.getElementById('start-game-button').addEventListener('click', function() {
+    document.getElementById('splash-page').classList.add('hide');
+});
