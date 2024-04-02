@@ -1,0 +1,170 @@
+/* CSS */
+.tile {
+    width: 200px;
+    height: 133px;
+    background-image: url('wooden-textured-background.jpg');
+    border: 1px solid #8B4513;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: "Survivant";
+    position: relative;
+    text-align: center;
+}
+
+ul.tiles{
+    list-style-type: none;
+    padding: 0px;
+    margin:0px;
+}
+
+#tilesList {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, 200px);
+    max-width: 1044px;
+    align-items: center;
+    place-items: center;
+    margin: 0 auto;
+}
+.incorrect {
+    background-color: rgba(200, 0, 0, 0.5);
+    background-blend-mode: multiply;
+}
+
+.correct {
+    background-color: rgba(41, 197, 41, 0.5);
+    background-blend-mode: multiply;
+}
+
+
+@font-face {
+    font-family: "Survivant";
+    src: url('survivant.ttf') format("truetype");
+}
+
+.tile-logo {
+    height: 90%;
+    width: 90%;
+}
+
+.answer-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.game-header{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board {
+    padding-top: 10px;
+}
+
+button {
+    font-family: "Survivant";
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    background-color: white;
+    margin: 0px 5px;
+}
+
+@media screen and (max-width: 387px) {
+    .tile {
+        width: 110px;
+        height: 73px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 110px);
+    }
+
+    button {
+        font-size: 12px;
+    }    
+}
+
+@media screen and (min-width: 388px) and (max-width: 419px){
+    .tile {
+        width: 120px;
+        height: 80px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 120px);
+    }
+    button {
+        font-size: 15px;
+    }
+    
+}
+
+@media screen and (min-width: 420px) and (max-width: 446px) {
+    .tile {
+        width: 130px;
+        height: 87px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 130px);
+    }
+    button {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 447px) and (max-width: 486px) {
+    .tile {
+        width: 140px;
+        height: 93px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 140px);
+    }
+    button {
+        font-size: 15px;
+    }
+
+}
+
+
+@media screen and (min-width: 486px) and (max-width: 637px) {
+    .tile {
+        width: 150px;
+        height: 100px;
+    }
+
+    #tilesList {
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fill, 150px);
+    }
+}
+
