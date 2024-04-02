@@ -105,6 +105,18 @@ function checkWin() {
     else {
         //message.textContent = 'WRONG!';
     }
+
+    var card = document.getElementById('card');
+    var closeButton = document.getElementById('closeButton');
+    var modalBackground = document.getElementById('modalBackground');
+
+    card.classList.add('show');
+    modalBackground.style.display = 'block';
+
+    closeButton.onclick = function() {
+        card.classList.remove('show');
+        modalBackground.style.display = 'none';
+    };
 }
 
 function shareGame() {
