@@ -1,7 +1,7 @@
 const message = document.getElementById('message');
 const list = document.getElementById('tilesList');
 const allTiles = Array.from({ length: 40 }, (_, i) => i + 1);
-const episodeTiles = [7,29,5,26,1,28,14,9,32,4,35,11,13,19,12,18,23,37,31,34];
+const episodeTiles = [7, 29, 5, 26, 1, 28, 14, 9, 32, 4, 35, 11, 13, 19, 12, 18, 23, 37, 31, 34];
 
 var boardTiles;
 var sortedTiles;
@@ -11,8 +11,8 @@ const createTile = (index, seasonNum) => {
     const div = document.createElement('div');
     div.className = 'tile';
 
-        div.dataset.sortid = index;
-        div.dataset.tileid = seasonNum;
+    div.dataset.sortid = index;
+    div.dataset.tileid = seasonNum;
 
     const img = document.createElement('img');
     img.className = "tile-logo";
@@ -42,7 +42,8 @@ function getBoardTilesFromShareId(regenerate = false) {
 }
 
 function newGame(isNewGame = false) {
-    boardTiles = getBoardTilesFromShareId();
+    console.log('New Game!');
+    boardTiles = getBoardTilesFromShareId(isNewGame);
     sortedTiles = boardTiles.map(tile => tile);
     sortedTiles.sort(compareNumbers);
 
@@ -51,10 +52,14 @@ function newGame(isNewGame = false) {
 
 function compareNumbers(a, b) {
     return a - b;
-  }
+}
 
 function boardInit() {
     list.innerHTML = '';
+
+    var checkWinButton = document.getElementById('checkWinButton');
+    checkWinButton.disabled = false;
+    checkWinButton.addEventListener('click', checkWin);
 
     boardTiles.forEach((tile, i) => {
         const tileDiv = createTile(i, tile);
@@ -71,52 +76,79 @@ function startEpisodeGame() {
 
 newGame();
 document.getElementById('checkWinButton').addEventListener('click', checkWin);
-document.getElementById('resetButton').addEventListener('click', startEpisodeGame);
-document.getElementById('newGameButton').addEventListener('click', function(){ newGame(true)});
-document.getElementById('shareButton').addEventListener('click', shareGame);
+// document.getElementById('resetButton').addEventListener('click', startEpisodeGame);
+document.getElementById('newGameButton').addEventListener('click', function () { newGame(true) });
+document.getElementById('helpButton').addEventListener('click', openHelpModal);
+
+function openHelpModal() {
+    var card = document.getElementById('howToCard');
+    var closeButton = document.getElementById('howToCloseButton');
+    var modalBackground = document.getElementById('modalBackground');
+
+    card.classList.add('show');
+    modalBackground.style.display = 'flex';
+
+    closeButton.onclick = function () {
+        card.classList.remove('show');
+        modalBackground.style.display = 'none';
+    };
+}
 
 function checkWin() {
     //message.textContent = '';
     var win = true;
 
     var tileNum = 0;
+    var correctCount = 0;
     document.querySelectorAll('#tilesList .tile').forEach(tile => {
         const span = document.createElement('div');
         span.innerHTML = (sortedTiles.indexOf(parseInt(tile.dataset.tileid)) + 1) + "<br>Season: " + tile.dataset.tileid;
 
         if (tileNum != sortedTiles.indexOf(parseInt(tile.dataset.tileid))) {
             span.className = 'answer-details incorrect';
-
             win = false;
         }
         else {
             span.className = 'answer-details correct';
-
+            correctCount++;
         }
 
         tile.appendChild(span);
-        
+
         tileNum++;
     });
 
-    if (win) {
-        //message.textContent = 'Congratulations!';
-    }
-    else {
-        //message.textContent = 'WRONG!';
-    }
+    var checkWinButton = document.getElementById('checkWinButton');
+    checkWinButton.disabled = true;
+    checkWinButton.removeEventListener('click', checkWin);
 
-    var card = document.getElementById('card');
-    var closeButton = document.getElementById('closeButton');
-    var modalBackground = document.getElementById('modalBackground');
+    console.log('Correct: ' + correctCount + ' / ' + boardTiles.length);
 
-    card.classList.add('show');
-    modalBackground.style.display = 'block';
+    document.getElementById('shareButton').addEventListener('click', function () {
+        var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Survivor Logo Sorting Challenge on OutwitPuzzles.com\n\nPlay here: " + generateShareLink();
+        navigator.clipboard.writeText(scoreText).then(function () {
+            document.getElementById('copyOutcome').textContent = 'Link Copied to Clipboard!';
+        }, function (err) {
+            document.getElementById('copyOutcome').textContent = 'Could not copy link to clipboard';
+        });
+    });
 
-    closeButton.onclick = function() {
-        card.classList.remove('show');
-        modalBackground.style.display = 'none';
-    };
+    setTimeout(function () {
+        var card = document.getElementById('resultsCard');
+        var closeButton = document.getElementById('closeButton');
+        var modalBackground = document.getElementById('modalBackground');
+        var score = document.getElementById('score');
+
+        score.textContent = correctCount + ' / ' + boardTiles.length;
+
+        card.classList.add('show');
+        modalBackground.style.display = 'flex';
+
+        closeButton.onclick = function () {
+            card.classList.remove('show');
+            modalBackground.style.display = 'none';
+        };
+    }, 500);
 }
 
 function shareGame() {
@@ -151,11 +183,11 @@ const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
     },
     plugins: [Draggable.Plugins.SortAnimation],
     swapAnimation: {
-      duration: 200,
-      easingFunction: 'ease-in-out',
+        duration: 200,
+        easingFunction: 'ease-in-out',
     },
-  });
+});
 // JavaScript
-// document.getElementById('start-game-button').addEventListener('click', function() {
-//     document.getElementById('splash-page').classList.add('hide');
-// });
+document.getElementById('start-game-button').addEventListener('click', function() {
+    document.getElementById('splash-page').classList.add('hide');
+});

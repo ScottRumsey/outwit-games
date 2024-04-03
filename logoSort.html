@@ -8,44 +8,68 @@
     <link rel="stylesheet" type="text/css" href="site.css">
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js"></script>
 </head>
-<header>
-    <nav>
-        <div id="menu-bar">
-            <div id="menu" onclick="onClickMenu()">
-                <div id="bar1" class="bar"></div>
-                <div id="bar2" class="bar"></div>
-                <div id="bar3" class="bar"></div>
-            </div>
-            <ul class="nav" id="nav">
-                <li><a href="logoSort.html">Season Sort</a></li>
-                <li><a href="credits.html">Credits</a></li>
-            </ul>
-        </div>
-        <div class="logo"><a href="logoSort.html">OUTWITPUZZLES.com</a></div>
-    </nav>
-</header>
 
 <body>
-    <!-- <div id="splash-page">
-        <h1>Welcome to the Game!</h1>
-        <button id="start-game-button">Start Game</button>
-    </div> -->
+    <header>
+        <nav>
+            <div id="menu-bar">
+                <div id="menu" onclick="onClickMenu()">
+                    <div id="bar1" class="bar"></div>
+                    <div id="bar2" class="bar"></div>
+                    <div id="bar3" class="bar"></div>
+                </div>
+                <ul class="nav" id="nav">
+                    <li><a href="logoSort.html">Season Sort</a></li>
+                    <li><a href="credits.html">Credits</a></li>
+                </ul>
+            </div>
+            <div class="logo"><a href="logoSort.html">OUTWITPUZZLES.com</a></div>
+        </nav>
+    </header>
+    <div id="splash-page">
+        <div class="splash-content">
+            <div class="splash-instructions">
+                <h1>Survivor Logo Sorting Challenge</h1>
+                <p>Inspired by the Journey Challenge in Survivor Season 46 Episode 5</p>
+                <h1 class="howToTitle">How to Play</h1>
+                <ul class="howToList">
+                    <li>Arrange the Survivor season logos in the order of their original airdate to win.</li>
+                    <li>The game board is arranged with the first season at the top-left and the last season at the bottom-right.</li>
+                </ul>
+            </div>
+            <div class="splash-buttons">
+                <button id="start-game-button">Play</button>
+                <button id="start-game-button">Journey Challenge</button>
+            </div>
+        </div>
+    </div>
     <div class="game-header">
         <button id="checkWinButton">Submit</button>
-        <button id="resetButton">Reset</button>
         <button id="newGameButton">New Game</button>
-        <button id="shareButton">Share</button>
+        <button id="helpButton">?</button>
     </div>
     <div class="game-board">
-        <!-- <div id="message"></div> -->
         <ul id="tilesList" class="tiles">
         </ul>
         <script src="logoSort.js"></script>
         <script src="site.js"></script>
     </div>
-    <div id="card" class="card">
+    <div id="resultsCard" class="card">
         <button id="closeButton">X</button>
-        <p>This is a slide-up card.</p>
+        <div class="resultsLayout">
+            <p class="resultText">Thank you for playing!</p>
+            <p id="score"></p>
+            <button id="shareButton">Share</button>
+            <p id="copyOutcome"></p>
+        </div>
+    </div>
+    <div id="howToCard" class="card">
+        <button id="howToCloseButton">X</button>
+        <h1 class="howToTitle">How to Play</h1>
+        <ul class="howToList">
+            <li>Arrange the Survivor season logos in the order of their original airdate to win.</li>
+            <li>The game board is arranged with the first season at the top-left and the last season at the bottom-right.</li>
+        </ul>
     </div>
     <div id="modalBackground" class="modal-background"></div>
 </body>

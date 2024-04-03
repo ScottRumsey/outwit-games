@@ -39,7 +39,7 @@
 
 .nav {
     position: fixed;
-    top: 58px;
+    top: 50px;
     left: -100%;
     height: calc(100vh - 50px);
     width: 200px;
@@ -51,6 +51,7 @@
 nav {
     display: flex;
     align-items: center;
+    /* z-index: 1000; */
 }
 
 ul.nav{
@@ -88,7 +89,7 @@ ul.nav{
 /* CSS */
 header {
     position: relative;
-    z-index: 1;
+    z-index: 1000;
     background-color: #fff;
     height: 50px;
     border-bottom: 1px solid #ddd;
@@ -122,4 +123,8 @@ header {
     .logo {
         font-size: 25px;
     }
+}
+
+body {
+    margin: 0px;
 }

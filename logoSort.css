@@ -72,7 +72,27 @@ ul.tiles{
 }
 
 .game-board {
-    padding-top: 10px;
+    padding: 10px;
+}
+
+#score{
+    font-family: "Survivant";
+    font-size: 40px;
+    margin:30px;
+}
+
+.resultText{
+    font-size: 30px;
+    margin:10px;
+    text-align: center;
+}
+
+#checkWinButton:disabled {
+    background-color: lightgray;
+}
+
+.howToList li {
+    margin-bottom: 10px;
 }
 
 button {
@@ -195,6 +215,18 @@ button {
     will-change: transform, opacity;
 }
 
+.resultsLayout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top:30px;
+}
+
+.card button{
+    margin-top:10px;
+}
+
 #closeButton {
     font-family: 'Arial';
     position: absolute;
@@ -205,6 +237,18 @@ button {
     font-size: 20px;
     cursor: pointer;
 }
+
+#howToCloseButton {
+    font-family: 'Arial';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 
 .card.show {
     display: block; 
@@ -220,4 +264,46 @@ button {
         transform: translate3d(-50%, -50%, 0);
         opacity: 1;
     }
+}
+
+#splash-page {
+    position: absolute;
+    width: 100%;
+    height: 100%; /* Adjust this value based on the height of your header */
+    background-color: rgba(255, 255, 255);
+    transition: all 1s ease-in-out;
+    z-index: 100;
+    font-family: "Arial";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#splash-page.hide {
+    opacity: 0;
+    transform: translateY(-110%);
+}
+
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 30px;
+    width: 350px;
+}
+
+.splash-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+    padding-top:40px;
+}
+
+.splash-buttons button {
+    width: 350px;
 }
