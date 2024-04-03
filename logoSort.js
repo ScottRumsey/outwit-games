@@ -116,24 +116,30 @@ function checkWin() {
     document.getElementById('generateLinkButton').addEventListener('click', function () {
         var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitPuzzles.com";
 
-        if (navigator.share) {
-            // Web Share API is available
-            navigator.share({
-                title: 'Outwit🔥Puzzles - Season Sorting Challenge',
-                text: scoreText,
-                url: generateShareLink(),
-            }).catch((err) => {
-                document.getElementById('copyOutcome').textContent = 'Could not share message';
+        fetch('https://outwitpuzzles.com/social.png')
+            .then(response => response.blob())
+            .then(blob => {
+                const file = new File([blob], 'social.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    // Web Share API is available and supports sharing files
+                    navigator.share({
+                        title: 'Outwit🔥Puzzles - Season Sorting Challenge',
+                        text: scoreText,
+                        url: generateShareLink(),
+                        files: [file],
+                    }).catch((err) => {
+                        document.getElementById('copyOutcome').textContent = 'Could not share message';
+                    });
+                } else {
+                    scoreText += "\n\nPlay here: " + generateShareLink();
+                    // Fallback to copying to clipboard
+                    navigator.clipboard.writeText(scoreText).then(function () {
+                        document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
+                    }, function (err) {
+                        document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
+                    });
+                }
             });
-        } else {
-            scoreText += "\n\nPlay here: " + generateShareLink();
-            // Fallback to copying to clipboard
-            navigator.clipboard.writeText(scoreText).then(function () {
-                document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
-            }, function (err) {
-                document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
-            });
-        }
     });
 
     setTimeout(function () {
@@ -196,15 +202,15 @@ const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
 let mirror = false;
 
 sortable.on("mirror:create", (e) => {
-  if (mirror) {
-    e.cancel();
-    return;
-  }
-  mirror = true;
+    if (mirror) {
+        e.cancel();
+        return;
+    }
+    mirror = true;
 });
 
 sortable.on("mirror:destroy", () => {
-  mirror = false
+    mirror = false
 })
 
 
