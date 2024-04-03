@@ -70,6 +70,12 @@ function boardInit() {
         const tileDiv = createTile(i, tile);
         list.appendChild(tileDiv);
     });
+    
+    document.querySelectorAll('.tile').forEach(function(tile) {
+        tile.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    });
 }
 
 function openHelpModal() {
@@ -85,12 +91,13 @@ function openHelpModal() {
         modalBackground.style.display = 'none';
     };
 }
+var correctCount = 0;
 
 function checkWin() {
     var win = true;
 
     var tileNum = 0;
-    var correctCount = 0;
+    correctCount = 0;
     document.querySelectorAll('#tilesList .tile').forEach(tile => {
         const span = document.createElement('div');
         span.innerHTML = (sortedTiles.indexOf(parseInt(tile.dataset.tileid)) + 1) + "<br>Season: " + tile.dataset.tileid;
@@ -113,28 +120,8 @@ function checkWin() {
     checkWinButton.disabled = true;
     checkWinButton.removeEventListener('click', checkWin);
 
-    document.getElementById('generateLinkButton').addEventListener('click', function () {
-            var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitPuzzles.com";
-        
-            if (navigator.share) {
-                // Web Share API is available
-                navigator.share({
-                    title: 'Outwit🔥Puzzles - Season Sorting Challenge',
-                    text: scoreText,
-                    url: generateShareLink(),
-                }).catch((err) => {
-                    document.getElementById('copyOutcome').textContent = 'Could not share message';
-                });
-            } else {
-                scoreText += "\n\nPlay here: " + generateShareLink();
-                // Fallback to copying to clipboard
-                navigator.clipboard.writeText(scoreText).then(function () {
-                    document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
-                }, function (err) {
-                    document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
-                });
-            }
-    });
+    document.getElementById('generateLinkButton').removeEventListener('click',shareGame);
+    document.getElementById('generateLinkButton').addEventListener('click', shareGame);
 
     setTimeout(function () {
         var card = document.getElementById('resultsCard');
@@ -160,6 +147,28 @@ function checkWin() {
             modalBackground.style.display = 'none';
         };
     }, 500);
+}
+
+function shareGame () {
+    var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitPuzzles.com";
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Outwit🔥Puzzles - Season Sorting Challenge',
+            text: scoreText,
+            url: generateShareLink(),
+        }).catch((err) => {
+            document.getElementById('copyOutcome').textContent = 'Could not share message';
+        });
+    } else {
+        scoreText += "\n\nPlay here: " + generateShareLink();
+        // Fallback to copying to clipboard
+        navigator.clipboard.writeText(scoreText).then(function () {
+            document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
+        }, function (err) {
+            document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
+        });
+    }
 }
 
 function generateShareLink() {
