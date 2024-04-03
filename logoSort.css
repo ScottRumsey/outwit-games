@@ -1,4 +1,3 @@
-/* CSS */
 .tile {
     width: 200px;
     height: 133px;
@@ -121,7 +120,7 @@ button {
     }
 
     button {
-        font-size: 12px;
+        font-size: 20px;
     }    
 }
 
@@ -137,7 +136,7 @@ button {
         grid-template-columns: repeat(auto-fill, 120px);
     }
     button {
-        font-size: 15px;
+        font-size: 20px;
     }
     
 }
@@ -154,7 +153,7 @@ button {
         grid-template-columns: repeat(auto-fill, 130px);
     }
     button {
-        font-size: 15px;
+        font-size: 20px;
     }
 }
 
@@ -170,11 +169,10 @@ button {
         grid-template-columns: repeat(auto-fill, 140px);
     }
     button {
-        font-size: 15px;
+        font-size: 20px;
     }
 
 }
-
 
 @media screen and (min-width: 486px) and (max-width: 637px) {
     .tile {
@@ -196,7 +194,7 @@ button {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
-    z-index: 1;
+    z-index: 1001;
 }
 
 .card {
@@ -209,7 +207,7 @@ button {
     background-color: #f9f9f9;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 2;
+    z-index: 1002;
     display: none;
     font-family: 'Arial';
     will-change: transform, opacity;
@@ -249,7 +247,6 @@ button {
     cursor: pointer;
 }
 
-
 .card.show {
     display: block; 
     animation: slideUp 0.2s ease-out;
@@ -269,7 +266,7 @@ button {
 #splash-page {
     position: absolute;
     width: 100%;
-    height: 100%; /* Adjust this value based on the height of your header */
+    height: 100%;
     background-color: rgba(255, 255, 255);
     transition: all 1s ease-in-out;
     z-index: 100;
@@ -283,6 +280,11 @@ button {
 #splash-page.hide {
     opacity: 0;
     transform: translateY(-110%);
+}
+
+#splash-page.show {
+    opacity: 100%;
+    transform: translateY(0%);
 }
 
 .splash-content {

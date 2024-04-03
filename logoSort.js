@@ -1,7 +1,7 @@
 const message = document.getElementById('message');
 const list = document.getElementById('tilesList');
 const allTiles = Array.from({ length: 40 }, (_, i) => i + 1);
-const episodeTiles = [7, 29, 5, 26, 1, 28, 14, 9, 32, 4, 35, 11, 13, 19, 12, 18, 23, 37, 31, 34];
+const journeyTiles = [7, 29, 5, 26, 1, 28, 14, 9, 32, 4, 35, 11, 13, 19, 12, 18, 23, 37, 31, 34];
 
 var boardTiles;
 var sortedTiles;
@@ -41,12 +41,17 @@ function getBoardTilesFromShareId(regenerate = false) {
     }
 }
 
-function newGame(isNewGame = false) {
-    console.log('New Game!');
+function startNewGame(isNewGame = false) {
     boardTiles = getBoardTilesFromShareId(isNewGame);
     sortedTiles = boardTiles.map(tile => tile);
     sortedTiles.sort(compareNumbers);
+    boardInit();
+}
 
+function startJourneyGame() {
+    boardTiles = journeyTiles.map(tile => tile);
+    sortedTiles = boardTiles.map(tile => tile);
+    sortedTiles.sort(compareNumbers);
     boardInit();
 }
 
@@ -67,19 +72,6 @@ function boardInit() {
     });
 }
 
-function startEpisodeGame() {
-    boardTiles = episodeTiles.map(tile => tile);
-    sortedTiles = boardTiles.map(tile => tile);
-    sortedTiles.sort(compareNumbers);
-    boardInit();
-}
-
-newGame();
-document.getElementById('checkWinButton').addEventListener('click', checkWin);
-// document.getElementById('resetButton').addEventListener('click', startEpisodeGame);
-document.getElementById('newGameButton').addEventListener('click', function () { newGame(true) });
-document.getElementById('helpButton').addEventListener('click', openHelpModal);
-
 function openHelpModal() {
     var card = document.getElementById('howToCard');
     var closeButton = document.getElementById('howToCloseButton');
@@ -95,7 +87,6 @@ function openHelpModal() {
 }
 
 function checkWin() {
-    //message.textContent = '';
     var win = true;
 
     var tileNum = 0;
@@ -122,14 +113,12 @@ function checkWin() {
     checkWinButton.disabled = true;
     checkWinButton.removeEventListener('click', checkWin);
 
-    console.log('Correct: ' + correctCount + ' / ' + boardTiles.length);
-
     document.getElementById('shareButton').addEventListener('click', function () {
         var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Survivor Logo Sorting Challenge on OutwitPuzzles.com\n\nPlay here: " + generateShareLink();
         navigator.clipboard.writeText(scoreText).then(function () {
-            document.getElementById('copyOutcome').textContent = 'Link Copied to Clipboard!';
+            document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
         }, function (err) {
-            document.getElementById('copyOutcome').textContent = 'Could not copy link to clipboard';
+            document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
         });
     });
 
@@ -138,6 +127,14 @@ function checkWin() {
         var closeButton = document.getElementById('closeButton');
         var modalBackground = document.getElementById('modalBackground');
         var score = document.getElementById('score');
+        var resultText = document.getElementById('resultText');
+
+        if (correctCount == boardTiles.length) {
+            resultText.innerHTML = '🎉You win!🎉<br>Congratulations!';
+        }
+        else {
+            resultText.innerHTML = 'Sorry, you didn\'t dig deep enough.<br>😔<br>Try again!';
+        }
 
         score.textContent = correctCount + ' / ' + boardTiles.length;
 
@@ -151,11 +148,6 @@ function checkWin() {
     }, 500);
 }
 
-function shareGame() {
-    console.log(generateShareLink());
-}
-
-/* JavaScript */
 function generateShareLink() {
     var base64 = convertBoardTilesToBase64();
     var params = new URLSearchParams(window.location.search);
@@ -163,7 +155,6 @@ function generateShareLink() {
     return window.location.origin + window.location.pathname + '?' + params.toString();
 }
 
-/* JavaScript */
 function convertBoardTilesToBase64() {
     var json = JSON.stringify(boardTiles);
     var base64 = btoa(unescape(encodeURIComponent(json)));
@@ -173,7 +164,7 @@ function convertBoardTilesToBase64() {
 function convertBase64ToBoardTiles(base64) {
     var json = decodeURIComponent(escape(atob(base64)));
     var boardTiles = JSON.parse(json);
-    return boardTiles.map(Number); // Convert elements to numbers
+    return boardTiles.map(Number);
 }
 
 const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
@@ -187,7 +178,40 @@ const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
         easingFunction: 'ease-in-out',
     },
 });
-// JavaScript
-document.getElementById('start-game-button').addEventListener('click', function() {
+
+function clickPlay() {
+    startNewGame();
+    hideSplash();
+}
+
+function clickJourney() {
+    startJourneyGame();
+    hideSplash();
+}
+
+function clickNewGame() {
+    removeShareIdFromUrl();
+    showSplash();
+}
+
+function hideSplash() {
     document.getElementById('splash-page').classList.add('hide');
-});
+    document.getElementById('splash-page').classList.remove('show');
+}
+
+function showSplash() {
+    document.getElementById('splash-page').classList.add('show');
+    document.getElementById('splash-page').classList.remove('hide');
+}
+
+function removeShareIdFromUrl() {
+    let url = new URL(window.location.href);
+    url.searchParams.delete('shareId');
+    window.history.replaceState({}, document.title, url.toString());
+}
+
+document.getElementById('start-game-button').addEventListener('click', clickPlay);
+document.getElementById('start-journey-button').addEventListener('click', clickJourney);
+document.getElementById('checkWinButton').addEventListener('click', checkWin);
+document.getElementById('newGameButton').addEventListener('click', clickNewGame);
+document.getElementById('helpButton').addEventListener('click', openHelpModal);
