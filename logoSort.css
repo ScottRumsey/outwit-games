@@ -6,11 +6,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 1);
     font-size: 24px;
     color: white;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 10px;
     font-family: "Survivant";
     position: relative;
     text-align: center;
@@ -72,6 +72,7 @@ ul.tiles{
 
 .game-board {
     padding: 10px;
+    min-height: 800px;
 }
 
 #score{
@@ -94,6 +95,10 @@ ul.tiles{
     margin-bottom: 10px;
 }
 
+.howToList {
+    padding-left: 20px;
+}
+
 button {
     font-family: "Survivant";
     font-size: 20px;
@@ -105,6 +110,7 @@ button {
     border: 1px solid #ccc;
     background-color: white;
     margin: 0px 5px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 387px) {
@@ -211,6 +217,7 @@ button {
     display: none;
     font-family: 'Arial';
     will-change: transform, opacity;
+    border-radius: 10px;
 }
 
 .resultsLayout {
@@ -275,6 +282,7 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 20px;
 }
 
 #splash-page.hide {
@@ -292,9 +300,10 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    padding: 30px;
-    width: 350px;
+    border: #ddd solid 1px;
+    padding: 20px;
+    width: 364px;
+    border-radius: 10px;
 }
 
 .splash-buttons {
