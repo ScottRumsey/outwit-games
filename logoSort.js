@@ -113,7 +113,7 @@ function checkWin() {
     checkWinButton.disabled = true;
     checkWinButton.removeEventListener('click', checkWin);
 
-    document.getElementById('shareButton').addEventListener('click', function () {
+    document.getElementById('generateLinkButton').addEventListener('click', function () {
         var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Survivor Logo Sorting Challenge on OutwitPuzzles.com\n\nPlay here: " + generateShareLink();
         navigator.clipboard.writeText(scoreText).then(function () {
             document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
