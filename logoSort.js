@@ -179,6 +179,21 @@ const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
     },
 });
 
+let mirror = false;
+
+sortable.on("mirror:create", (e) => {
+  if (mirror) {
+    e.cancel();
+    return;
+  }
+  mirror = true;
+});
+
+sortable.on("mirror:destroy", () => {
+  mirror = false
+})
+
+
 function clickPlay() {
     startNewGame();
     hideSplash();
