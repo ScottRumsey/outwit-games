@@ -114,12 +114,26 @@ function checkWin() {
     checkWinButton.removeEventListener('click', checkWin);
 
     document.getElementById('generateLinkButton').addEventListener('click', function () {
-        var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Survivor Logo Sorting Challenge on OutwitPuzzles.com\n\nPlay here: " + generateShareLink();
-        navigator.clipboard.writeText(scoreText).then(function () {
-            document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
-        }, function (err) {
-            document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
-        });
+        var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitPuzzles.com";
+
+        if (navigator.share) {
+            // Web Share API is available
+            navigator.share({
+                title: 'Outwit🔥Puzzles - Season Sorting Challenge',
+                text: scoreText,
+                url: generateShareLink(),
+            }).catch((err) => {
+                document.getElementById('copyOutcome').textContent = 'Could not share message';
+            });
+        } else {
+            scoreText += "\n\nPlay here: " + generateShareLink();
+            // Fallback to copying to clipboard
+            navigator.clipboard.writeText(scoreText).then(function () {
+                document.getElementById('copyOutcome').textContent = 'Share message copied to Clipboard!';
+            }, function (err) {
+                document.getElementById('copyOutcome').textContent = 'Could not copy message to clipboard';
+            });
+        }
     });
 
     setTimeout(function () {
