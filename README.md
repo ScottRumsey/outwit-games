@@ -1,1 +1,1 @@
-# outwit-puzzles
+# outwit-games

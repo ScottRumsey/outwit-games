@@ -102,7 +102,7 @@ header {
     transform: rotate(45deg) translate(-5px, -4px);
 }
 
-@media screen and (max-width: 387px) {
+@media screen and (max-width: 388px) {
     .logo {
         font-size: 20px;
     }
@@ -114,7 +114,7 @@ header {
     }
 }
 
-@media screen and (min-width: 420px) and (max-width: 446px) {
+@media screen and (min-width: 419px) and (max-width: 446px) {
     .logo {
         font-size: 25px;
     }
@@ -122,4 +122,13 @@ header {
 
 body {
     margin: 0px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }

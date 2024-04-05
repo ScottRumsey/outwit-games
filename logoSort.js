@@ -68,6 +68,7 @@ function boardInit() {
 
     boardTiles.forEach((tile, i) => {
         const tileDiv = createTile(i, tile);
+        tileDiv.classList.add('unselectable');
         list.appendChild(tileDiv);
     });
     
@@ -100,14 +101,15 @@ function checkWin() {
     correctCount = 0;
     document.querySelectorAll('#tilesList .tile').forEach(tile => {
         const span = document.createElement('div');
+        span.classList.add('answer-details');
         span.innerHTML = (sortedTiles.indexOf(parseInt(tile.dataset.tileid)) + 1) + "<br>Season: " + tile.dataset.tileid;
 
         if (tileNum != sortedTiles.indexOf(parseInt(tile.dataset.tileid))) {
-            span.className = 'answer-details incorrect';
+            span.classList.add('incorrect');
             win = false;
         }
         else {
-            span.className = 'answer-details correct';
+            span.classList.add('correct');
             correctCount++;
         }
 
@@ -150,11 +152,11 @@ function checkWin() {
 }
 
 function shareGame () {
-    var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitPuzzles.com";
+    var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitGames.com";
 
     if (navigator.share) {
         navigator.share({
-            title: 'Outwit🔥Puzzles - Season Sorting Challenge',
+            title: 'Outwit🔥Games - Season Sorting Challenge',
             text: scoreText,
             url: generateShareLink(),
         }).catch((err) => {
