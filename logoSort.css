@@ -59,6 +59,7 @@ ul.tiles{
     position: absolute;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
 }
 
 .game-header{
@@ -85,6 +86,7 @@ ul.tiles{
     font-size: 30px;
     margin:10px;
     text-align: center;
+    padding-top: 10px;
 }
 
 #checkWinButton:disabled {
@@ -111,85 +113,6 @@ button {
     background-color: white;
     margin: 0px 5px;
     border-radius: 10px;
-}
-
-@media screen and (max-width: 387px) {
-    .tile {
-        width: 110px;
-        height: 73px;
-        font-size: 18px;
-    }
-
-    #tilesList {
-        grid-gap: 5px;
-        grid-template-columns: repeat(auto-fill, 110px);
-    }
-
-    button {
-        font-size: 20px;
-    }    
-}
-
-@media screen and (min-width: 388px) and (max-width: 419px){
-    .tile {
-        width: 120px;
-        height: 80px;
-        font-size: 18px;
-    }
-
-    #tilesList {
-        grid-gap: 5px;
-        grid-template-columns: repeat(auto-fill, 120px);
-    }
-    button {
-        font-size: 20px;
-    }
-    
-}
-
-@media screen and (min-width: 420px) and (max-width: 446px) {
-    .tile {
-        width: 130px;
-        height: 87px;
-        font-size: 18px;
-    }
-
-    #tilesList {
-        grid-gap: 5px;
-        grid-template-columns: repeat(auto-fill, 130px);
-    }
-    button {
-        font-size: 20px;
-    }
-}
-
-@media screen and (min-width: 447px) and (max-width: 486px) {
-    .tile {
-        width: 140px;
-        height: 93px;
-        font-size: 18px;
-    }
-
-    #tilesList {
-        grid-gap: 5px;
-        grid-template-columns: repeat(auto-fill, 140px);
-    }
-    button {
-        font-size: 20px;
-    }
-
-}
-
-@media screen and (min-width: 486px) and (max-width: 637px) {
-    .tile {
-        width: 150px;
-        height: 100px;
-    }
-
-    #tilesList {
-        grid-gap: 10px;
-        grid-template-columns: repeat(auto-fill, 150px);
-    }
 }
 
 .modal-background {
@@ -280,7 +203,6 @@ button {
     font-family: "Arial";
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding-top: 20px;
 }
@@ -312,9 +234,96 @@ button {
     justify-content: center;
     align-items: center;
     gap:15px;
-    padding-top:40px;
+    padding-top:20px;
 }
 
 .splash-buttons button {
     width: 350px;
+}
+
+@media screen and (max-width: 390px) {
+    .tile {
+        width: 110px;
+        height: 73px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 110px);
+    }
+
+    button {
+        font-size: 20px;
+    } 
+
+    .splash-content {
+        font-size: small;
+        border: none;
+    }   
+}
+
+@media screen and (min-width: 390px) and (max-width: 420px){
+    .tile {
+        width: 120px;
+        height: 80px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 120px);
+    }
+    button {
+        font-size: 20px;
+    }
+    .splash-content {
+        font-size: small;
+        border: none;
+    }   
+}
+
+@media screen and (min-width: 420px) and (max-width: 450px) {
+    .tile {
+        width: 130px;
+        height: 87px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 130px);
+    }
+    button {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 490px) {
+    .tile {
+        width: 140px;
+        height: 93px;
+        font-size: 18px;
+    }
+
+    #tilesList {
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fill, 140px);
+    }
+    button {
+        font-size: 20px;
+    }
+
+}
+
+@media screen and (min-width: 490px) and (max-width: 640px) {
+    .tile {
+        width: 150px;
+        height: 100px;
+    }
+
+    #tilesList {
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fill, 150px);
+    }
 }
