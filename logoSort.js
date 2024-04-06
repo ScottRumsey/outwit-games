@@ -24,7 +24,7 @@ const createTile = (index, seasonNum) => {
     return listItem;
 };
 
-function getBoardTilesFromShareId(regenerate = false) {
+function getBoardTilesFromShareId(numTiles, regenerate = false) {
     var params = new URLSearchParams(window.location.search);
     var base64 = params.get('shareId');
     if (base64 && !regenerate) {
@@ -33,16 +33,16 @@ function getBoardTilesFromShareId(regenerate = false) {
         } catch (error) {
             console.error('Failed to retrieve game board from url', error);
             allTiles.sort(() => Math.random() - 0.5);
-            return allTiles.slice(0, 20);
+            return allTiles.slice(0, numTiles);
         }
     } else {
         allTiles.sort(() => Math.random() - 0.5);
-        return allTiles.slice(0, 20);
+        return allTiles.slice(0, numTiles);
     }
 }
 
-function startNewGame(isNewGame = false) {
-    boardTiles = getBoardTilesFromShareId(isNewGame);
+function startNewGame(numTiles, isNewGame = false) {
+    boardTiles = getBoardTilesFromShareId(numTiles, isNewGame);
     sortedTiles = boardTiles.map(tile => tile);
     sortedTiles.sort(compareNumbers);
     boardInit();
@@ -71,9 +71,16 @@ function boardInit() {
         tileDiv.classList.add('unselectable');
         list.appendChild(tileDiv);
     });
-    
-    document.querySelectorAll('.tile').forEach(function(tile) {
-        tile.addEventListener('contextmenu', function(e) {
+
+    if (boardTiles.length === 9) {
+        document.getElementById('tilesList').classList.add('three-by-three');
+    }
+    else {  
+        document.getElementById('tilesList').classList.remove('three-by-three');
+    }
+
+    document.querySelectorAll('.tile').forEach(function (tile) {
+        tile.addEventListener('contextmenu', function (e) {
             e.preventDefault();
         });
     });
@@ -122,7 +129,7 @@ function checkWin() {
     checkWinButton.disabled = true;
     checkWinButton.removeEventListener('click', checkWin);
 
-    document.getElementById('generateLinkButton').removeEventListener('click',shareGame);
+    document.getElementById('generateLinkButton').removeEventListener('click', shareGame);
     document.getElementById('generateLinkButton').addEventListener('click', shareGame);
 
     setTimeout(function () {
@@ -151,7 +158,7 @@ function checkWin() {
     }, 500);
 }
 
-function shareGame () {
+function shareGame() {
     var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitGames.com";
 
     if (navigator.share) {
@@ -207,20 +214,20 @@ const sortable = new Draggable.Sortable(document.querySelectorAll('.tiles'), {
 let mirror = false;
 
 sortable.on("mirror:create", (e) => {
-  if (mirror) {
-    e.cancel();
-    return;
-  }
-  mirror = true;
+    if (mirror) {
+        e.cancel();
+        return;
+    }
+    mirror = true;
 });
 
 sortable.on("mirror:destroy", () => {
-  mirror = false
+    mirror = false
 })
 
 
-function clickPlay() {
-    startNewGame();
+function clickPlay(numTiles) {
+    startNewGame(numTiles);
     hideSplash();
 }
 
@@ -250,7 +257,8 @@ function removeShareIdFromUrl() {
     window.history.replaceState({}, document.title, url.toString());
 }
 
-document.getElementById('start-game-button').addEventListener('click', clickPlay);
+document.getElementById('start-normal-game-button').addEventListener('click', function () { clickPlay(20) });
+document.getElementById('start-easy-game-button').addEventListener('click', function () { clickPlay(9) });
 document.getElementById('start-journey-button').addEventListener('click', clickJourney);
 document.getElementById('checkWinButton').addEventListener('click', checkWin);
 document.getElementById('newGameButton').addEventListener('click', clickNewGame);

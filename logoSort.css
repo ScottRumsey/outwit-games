@@ -253,6 +253,10 @@ button {
         grid-template-columns: repeat(auto-fill, 110px);
     }
 
+    .three-by-three {
+        grid-template-columns: repeat(3, 110px);
+    }
+
     button {
         font-size: 20px;
     } 
@@ -275,6 +279,11 @@ button {
         grid-gap: 5px;
         grid-template-columns: repeat(auto-fill, 120px);
     }
+
+    .three-by-three {
+        grid-template-columns: repeat(3, 120px);
+    }
+
     button {
         font-size: 20px;
     }
@@ -296,6 +305,11 @@ button {
         grid-gap: 5px;
         grid-template-columns: repeat(auto-fill, 130px);
     }
+
+    .three-by-three {
+        grid-template-columns: repeat(3, 130px);
+    }
+
     button {
         font-size: 20px;
     }
@@ -312,6 +326,11 @@ button {
         grid-gap: 5px;
         grid-template-columns: repeat(auto-fill, 140px);
     }
+
+    .three-by-three {
+        grid-template-columns: repeat(3, 140px);
+    }
+
     button {
         font-size: 20px;
     }
@@ -327,5 +346,9 @@ button {
     #tilesList {
         grid-gap: 10px;
         grid-template-columns: repeat(auto-fill, 150px);
+    }
+
+    .three-by-three {
+        grid-template-columns: repeat(3, 150px);
     }
 }
