@@ -260,7 +260,7 @@ button {
     .splash-content {
         font-size: small;
         border: none;
-        padding-top: 0px;
+        padding: 0px;
     }   
 }
 
@@ -281,7 +281,7 @@ button {
     .splash-content {
         font-size: small;
         border: none;
-        padding-top: 0px;
+        padding: 0px;
     }   
 }
 
