@@ -38,7 +38,7 @@
     position: fixed;
     top: 50px;
     left: -100%;
-    height: calc(100vh - 50px);
+    height: 110vh;
     width: 200px;
     background-color: #fff; 
     transition: left 0.5s ease;
@@ -50,17 +50,26 @@ nav {
     align-items: center;
 }
 
-ul.nav{
+ul.nav {
     list-style-type: none;
     padding: 0px;
     font-family: "Survivant";
     margin: 0px;
     font-size: large;
+    position:relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.nav li{
+.logo {
+    position: absolute;
+    left: 50px; /* Adjust this value to shift the logo to the right */
+}
+
+.nav li {
     height: 3em;
     border: 1px solid #eee; 
+    display: inline-block;
 }
 
 .nav li a:hover {
@@ -79,7 +88,7 @@ ul.nav{
 }
 
 .nav.change {
-    left: 0;
+    left: -55px;
 }
 
 header {
@@ -131,4 +140,21 @@ body {
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+.btn {
+    font-family: "Survivant";
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    background-color: white;
+    margin: 0px 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    width: 350px;
+    text-align: center;
 }
