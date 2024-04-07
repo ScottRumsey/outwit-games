@@ -226,8 +226,8 @@ sortable.on("mirror:destroy", () => {
 })
 
 
-function clickPlay(numTiles) {
-    startNewGame(numTiles);
+function clickPlay(numTiles, newGame = false) {
+    startNewGame(numTiles, newGame);
     hideSplash();
 }
 
