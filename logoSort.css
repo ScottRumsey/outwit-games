@@ -266,6 +266,15 @@ button {
         border: none;
         padding: 0px;
     }   
+
+    #splash-page {
+        padding-top: 0px;
+    }
+
+    .splash-buttons {
+        gap: 10px;
+        padding-top: 10px;
+    }
 }
 
 @media screen and (min-width: 390px) and (max-width: 420px){
@@ -291,7 +300,16 @@ button {
         font-size: small;
         border: none;
         padding: 0px;
-    }   
+    }
+
+    #splash-page {
+        padding-top: 0px;
+    }  
+
+    .splash-buttons {
+        gap: 10px;
+        padding-top: 10px;
+    }
 }
 
 @media screen and (min-width: 420px) and (max-width: 450px) {

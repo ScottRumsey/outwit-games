@@ -247,6 +247,7 @@ function hideSplash() {
 }
 
 function showSplash() {
+    showHideShareItems();
     document.getElementById('splash-page').classList.add('show');
     document.getElementById('splash-page').classList.remove('hide');
 }
@@ -257,8 +258,27 @@ function removeShareIdFromUrl() {
     window.history.replaceState({}, document.title, url.toString());
 }
 
-document.getElementById('start-normal-game-button').addEventListener('click', function () { clickPlay(20) });
-document.getElementById('start-easy-game-button').addEventListener('click', function () { clickPlay(9) });
+document.addEventListener('DOMContentLoaded', function () {
+    showHideShareItems();
+});
+
+function showHideShareItems(){
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('shareId')) {
+        document.getElementById('start-shared-game-button').style.display = 'block';
+        document.getElementById('share-list-item').style.display = 'block';
+    }
+    else{
+        document.getElementById('start-shared-game-button').style.display = 'none';
+        document.getElementById('share-list-item').style.display = 'none';
+    }
+}
+
+
+
+document.getElementById('start-shared-game-button').addEventListener('click', function () { clickPlay(20, false) });
+document.getElementById('start-normal-game-button').addEventListener('click', function () { clickPlay(20, true) });
+document.getElementById('start-easy-game-button').addEventListener('click', function () { clickPlay(9, true) });
 document.getElementById('start-journey-button').addEventListener('click', clickJourney);
 document.getElementById('checkWinButton').addEventListener('click', checkWin);
 document.getElementById('newGameButton').addEventListener('click', clickNewGame);
