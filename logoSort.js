@@ -159,7 +159,7 @@ function checkWin() {
 }
 
 function shareGame() {
-    var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on OutwitGames.com";
+    var scoreText = "I scored " + correctCount + "/" + boardTiles.length + " on the Season Sorting Challenge on Outwit Games";
 
     if (navigator.share) {
         navigator.share({
@@ -265,8 +265,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function showHideShareItems(){
     let urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('shareId')) {
-        document.getElementById('start-shared-game-button').style.display = 'block';
-        document.getElementById('share-list-item').style.display = 'block';
+        document.getElementById('start-shared-game-button').style.display = '';
+        document.getElementById('share-list-item').style.display = '';
     }
     else{
         document.getElementById('start-shared-game-button').style.display = 'none';
